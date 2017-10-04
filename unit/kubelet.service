@@ -1,0 +1,25 @@
+[Unit]
+Description=Kubelet Service
+After=network.target
+After=docker.service
+After=flanneld.service
+
+[Service]
+Type=simple
+ExecStart=/bin/kubelet \
+            --api-servers=http://API_SERVER:8080 \
+            --hostname-override=HOSTNAME \
+            --image-gc-high-threshold=80 \
+            --image-gc-low-threshold=50 \
+            --log-dir=/root/kubernetes/log/kubelet \
+            --logtostderr=false \
+            --pod-infra-container-image=registry.alauda.cn/googlecontainer/pause-amd64:3.0 \
+            --system-reserved cpu=1000m,memory=2G \
+            --cgroup-driver=systemd \
+            --v=5 \
+
+Restart=always
+LimitNOFILE=65536
+
+[Install]
+WantedBy=default.target

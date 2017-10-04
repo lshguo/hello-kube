@@ -1,0 +1,19 @@
+[Unit]
+Description=Kube-scheduler Service
+After=network.target
+After=etcd.service
+
+[Service]
+Type=simple
+ExecStart=/bin/kube-scheduler \
+            --log-dir=/root/kubernetes/log/kube-scheduler \
+            --logtostderr=false \
+            --master=http://0.0.0.0:8080 \
+            --leader-elect=true \
+            --v=5 \
+
+Restart=always
+LimitNOFILE=65536
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,25 @@
+[Unit]
+Description=Kube-apiserver Service
+After=network.target
+After=etcd.service
+
+[Service]
+Type=notify
+ExecStart=/bin/kube-apiserver \
+            --admission-control=NamespaceAutoProvision,LimitRanger,SecurityContextDeny \
+            --apiserver-count=1 \
+            --cors-allowed-origins=.* \
+            --enable-garbage-collector=false \
+            --etcd-servers=http://ETCD_SERVER:2379 \
+            --insecure-bind-address=0.0.0.0 \
+            --insecure-port=8080 \
+            --log-dir=/root/kubernetes/log/kube-apiserver \
+            --logtostderr=false \
+            --service-cluster-ip-range=10.254.0.0/16 \
+            --v=5 \
+
+Restart=always
+LimitNOFILE=65536
+
+[Install]
+WantedBy=default.target

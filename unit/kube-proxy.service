@@ -1,0 +1,19 @@
+[Unit]
+Description=Kube-proxy Service
+After=network.target
+After=docker.service
+After=flanneld.service
+
+[Service]
+Type=simple
+ExecStart=/bin/kube-proxy  \
+            --log-dir=/root/kubernetes/log/kube-proxy \
+            --logtostderr=false \
+            --master=http://API_SERVER:8080 \
+            --v=5 \
+
+Restart=always
+LimitNOFILE=65536
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,23 @@
+[Unit]
+Description=Kube-controller-manager Service
+After=network.target
+After=etcd.service
+
+[Service]
+Type=simple
+ExecStart=/bin/kube-controller-manager \
+          --enable-garbage-collector=false \
+          --logtostderr=false \
+          --log-dir=/root/kubernetes/log/kube-controller-manager \
+          --pod-eviction-timeout=5m0s \
+          --master=http://0.0.0.0:8080 \
+          --node-monitor-grace-period=40s \
+          --terminated-pod-gc-threshold=12500 \
+          --leader-elect=true \
+          --v=4 \
+
+Restart=always
+LimitNOFILE=65536
+
+[Install]
+WantedBy=default.target
