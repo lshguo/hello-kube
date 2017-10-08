@@ -1,5 +1,9 @@
 package main
 
+/*
+	注意： 要将本源文件放在kubernetes源码目录下编译
+	       这样可以借用其vendor目录，不然很难通过
+*/
 import (
 	"flag"
 	"fmt"
