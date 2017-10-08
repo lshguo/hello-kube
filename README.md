@@ -5,3 +5,7 @@
 TODO: 
 setup etcd, flannel
 build kube src, then update cluster
+
+# kube-client
+
+通过client-go创建了一个简单的查询namespace下pods的client示例
